@@ -1,0 +1,3 @@
+/home/alse-i/Documentos/ALSE_Santiago_Ortiz_20_I/ex4/fig_geometricas_her/build/CMakeFiles/rebuild_cache.dir
+/home/alse-i/Documentos/ALSE_Santiago_Ortiz_20_I/ex4/fig_geometricas_her/build/CMakeFiles/fig_geometricas_her.dir
+/home/alse-i/Documentos/ALSE_Santiago_Ortiz_20_I/ex4/fig_geometricas_her/build/CMakeFiles/edit_cache.dir

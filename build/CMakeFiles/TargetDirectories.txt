@@ -1,0 +1,3 @@
+/home/alse-i/Documentos/ALSE_Santiago_Ortiz_20_I/build/CMakeFiles/rebuild_cache.dir
+/home/alse-i/Documentos/ALSE_Santiago_Ortiz_20_I/build/CMakeFiles/lectura.dir
+/home/alse-i/Documentos/ALSE_Santiago_Ortiz_20_I/build/CMakeFiles/edit_cache.dir
