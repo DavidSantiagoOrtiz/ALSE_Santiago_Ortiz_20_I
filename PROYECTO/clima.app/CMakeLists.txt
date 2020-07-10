@@ -7,7 +7,7 @@ set(CMAKE_AUTOMOC ON)
 
 find_package(Qt5Core)
 
-add_executable (${PROJECT_NAME} "main.cpp" "Dato.h" "Dato.cpp" "Muestreador.h" "Muestreador.cpp" "Estacion_meteo.h" "Estacion_meteo.cpp" "alarma_class.h")
+add_executable (${PROJECT_NAME} "main.cpp" "Dato.h" "Dato.cpp" "Muestreador.h" "Muestreador.cpp" "Estacion_meteo.h" "Estacion_meteo.cpp" "alarma_class.h" "alarma_class.cpp" "DB_local.h" "DB_local.cpp")
 
 target_link_libraries(${PROJECT_NAME} Qt5::Core)
 

@@ -5,20 +5,9 @@
 
 
 
-Muestreo::Muestreo()
-{
-    _tamano = 0;
-    if(_datos.size() != 0) {
-        for (int i = 0 ; i <= _datos.size() ; i++){
-            _datos[i].setAltura(0);
-            _datos[i].setDirviento(0);
-            _datos[i].setHumedad(0);
-            _datos[i].setLatitud(0);
-            _datos[i].setLongitud(0);
-            _datos[i].setTemperatura(0.);
-            _datos[i].setVeloviento(0.);
-        }
-    }
+
+Muestreo::Muestreo(){
+    _indice = 0;
 
 }
 
@@ -32,46 +21,37 @@ bool Muestreo::tomarDato()
     unsigned char h = 50 ;
 
     Dato d(t,h,v,dr,la,lo,a);
-
-    t++;
-    v++;
-    dr++;
-    lo++;
-    la++;
-    a++;
-    h++;
-
-    _datos.push_back(d);
-
-    std::cout << "Temperatura:" <<d.getTemperatura() << std::endl;
-    std::cout << "Velocidad viento:" <<d.getVeloviento() << std::endl;
-    std::cout << "Direccion viento:" <<d.getDirviento() << std::endl;
-    std::cout << "Humedad:" <<d.getHumedad() << std::endl;
-    std::cout << "Latitud:" <<d.getLatitud() << std::endl;
-    std::cout << "Longitud:" <<d.getLongitud() << std::endl;
-    std::cout << "Altura:" <<d.getAltura()<< std::endl;
-
-    return true;
+    
+    if(_indice < NUM_MUESTRAS_MIN ){
+        _datos[_indice] = d;
+    }
+    _indice++;
+    
+    if(_indice == NUM_MUESTRAS_MIN ){
+        return true;
+    }else{}
+    
+    
 }
 
 Dato Muestreo::promedio()
 {
-    Dato pr(0.,0,0.,0,0,0,0);
+   Dato pr;
    float t,v;
    int dv;
 
-   for (int i = 0; i < _datos.size(); i++){
+   for (int i = 0; i < NUM_MUESTRAS_MIN ; i++){
        t += _datos[i].getTemperatura();
        v += _datos[i].getVeloviento();
        dv += _datos[i].getDirviento();
    }
-   pr.setTemperatura(t/_datos.size());
-   pr.setVeloviento(v/_datos.size());
-   pr.setDirviento(dv/_datos.size());
+   pr.setTemperatura(t/NUM_MUESTRAS_MIN );
+   pr.setVeloviento(v/NUM_MUESTRAS_MIN );
+   pr.setDirviento(dv/NUM_MUESTRAS_MIN );
 
-   std::cout << "Promedio Temperatura:" <<pr.getTemperatura() << std::endl;
-   std::cout << "Promedio Velocidad viento:" <<pr.getVeloviento() << std::endl;
-   std::cout << "Promedio Direccion viento:" <<pr.getDirviento() << std::endl;
+//   std::cout << "Promedio Temperatura:" <<pr.getTemperatura() << std::endl;
+//   std::cout << "Promedio Velocidad viento:" <<pr.getVeloviento() << std::endl;
+//   std::cout << "Promedio Direccion viento:" <<pr.getDirviento() << std::endl;
 
    return pr;
 }

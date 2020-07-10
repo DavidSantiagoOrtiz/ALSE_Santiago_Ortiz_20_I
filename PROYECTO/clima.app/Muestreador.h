@@ -4,6 +4,9 @@
 #include <iostream>
 #include <vector>
 #include "Dato.h"
+#include <stdlib.h>
+
+#define NUM_MUESTRAS_MIN 12
 
 class Muestreo {
 public:
@@ -14,9 +17,9 @@ public:
     ~Muestreo();
 
 private:
-    int _tamano;
-    std::vector<Dato> _datos;
-    //Dato::Dato vector[12];
+    int _indice;
+    //std::vector<Dato> _datos;
+    Dato _datos[NUM_MUESTRAS_MIN];
 
 };
 #endif

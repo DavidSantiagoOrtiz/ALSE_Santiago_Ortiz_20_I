@@ -8,7 +8,9 @@
 class Alarma:public QObject{
     Q_OBJECT
 
+
 public:
+    bool activar_Alarma ();
     void conexion( QTimer &t){connect(&t, SIGNAL( timeout() ), this, SLOT( alarma() ) );}
 
 public slots:
@@ -16,3 +18,5 @@ public slots:
 };
 
 #endif // ALARMA_CLASS_H
+
+

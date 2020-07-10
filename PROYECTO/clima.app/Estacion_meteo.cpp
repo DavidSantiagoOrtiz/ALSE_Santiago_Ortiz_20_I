@@ -1,14 +1,47 @@
 #include "Estacion_meteo.h"
 #include "Muestreador.h"
+#include "alarma_class.h"
+#include "Dato.h"
+#include "DB_local.h"
+
 #include <iostream>
 
-bool Estacion_meteo::iniciar_toma_datos(int a)
+
+Estacion_meteo::Estacion_meteo()
 {
-    Muestreo m;
-    m.tomarDato();
-    if (a = 12){
-        m.promedio();
-    }
+    _nombre = "Estacion_01";
+    _ubicacion = "Bogota_DC";
+    _usrname  = "Bogota_DC";
+    _password = "Bogota_DC";
+
+
+}
+
+bool Estacion_meteo::iniciar_toma_datos()
+{
+    bool alarma,sp;
+    int h = 0, m = 0;
+    Alarma a;
+    Muestreo muestra;
+    Dato dato;
+    DB_local bd;
+
+
+        for (int i = 1 ; i <= NUM_MUESTRAS_MIN  ; i++){
+            alarma = a.activar_Alarma();
+            if(alarma = true){
+                sp = muestra.tomarDato();
+            }
+        }
+        if (sp = true){
+            dato = muestra.promedio();
+            m++;
+        }
+        bd.guardar_dato(dato,h,m);
+
+
+
+
     return true;
 }
 
