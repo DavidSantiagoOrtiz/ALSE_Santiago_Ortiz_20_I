@@ -21,6 +21,8 @@ Dato::Dato(){
     _altura = 0;
 }
 
+
+
 ostream& operator<<(ostream& stream, Dato& dato) {
     stream  << "temperatura: " << dato.getTemperatura() << "   humedad: " << dato.getHumedad() <<
                "   velocidad del viento: " << dato.getVeloviento() << "   direción de viento: " << dato.getDirviento() <<

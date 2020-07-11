@@ -23,7 +23,8 @@ class DB_local{
         bool guardar_dato(Dato d, int h, int m);
         bool abrir_DB();
         bool cerrar_DB();
-        bool crear_DB();
+        bool ejecutar_DB();
+        bool crear_DB(char n_DB);
         bool borrar_dato(Dato d);
         Dato getdato_minuto(int h, int m);
         Dato getdato(int h, int m, int s);

@@ -1,19 +1,19 @@
-#include <QCoreApplication>
-#include <QTimer>
-#include <alarma_class.h>
-#include <unistd.h>
-#include <iostream>
 #include "Estacion_meteo.h"
-
+#include <QCoreApplication>
+#include <time.h>
+#include <iostream>
 
 
 int main(int argc, char *argv[])
-{
-    bool det;
-    Estacion_meteo es;
+{    
+    QCoreApplication a( argc , argv );
 
-    det = es.iniciar_toma_datos();
-    //if (det = true)
+    std::time_t f = std::time(nullptr);
+    struct tm * timeinfo;
+    timeinfo = std::localtime (&f);
 
-
+    Estacion_meteo EM1B_ECI(f,timeinfo->tm_hour,timeinfo->tm_min);
+    EM1B_ECI.iniciar_toma_datos();
+    a.exec();
+    return 0;
 }

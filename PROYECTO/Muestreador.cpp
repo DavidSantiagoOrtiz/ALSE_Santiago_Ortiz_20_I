@@ -2,19 +2,12 @@
 #include "Dato.h"
 #include <iostream>
 
-
-
-
-
 Muestreo::Muestreo(){
     _indice = 0;
-
 }
 
 bool Muestreo::tomarDato()
 {
-
-
     float t = 22.3, v = 45.7;
     int dr = 67;
     double lo = 74045130 , la = 4355657 , a = 2630;
@@ -22,15 +15,10 @@ bool Muestreo::tomarDato()
 
     Dato d(t,h,v,dr,la,lo,a);
     
-    if(_indice < NUM_MUESTRAS_MIN ){
+    if(_indice < NUM_MUESTRAS_M ){
         _datos[_indice] = d;
     }
     _indice++;
-    
-    if(_indice == NUM_MUESTRAS_MIN ){
-        return true;
-    }else{}
-    
     
 }
 
@@ -39,19 +27,23 @@ Dato Muestreo::promedio()
    Dato pr;
    float t,v;
    int dv;
+   double lo,la,a;
 
-   for (int i = 0; i < NUM_MUESTRAS_MIN ; i++){
-       t += _datos[i].getTemperatura();
-       v += _datos[i].getVeloviento();
-       dv += _datos[i].getDirviento();
+   for (int i = 0; i < NUM_MUESTRAS_M ; i++){
+
+       a  += pr.getAltura() ;
+       dv += pr.getDirviento();
+       la += pr.getLatitud();
+       lo += pr.getLongitud();
+       t  += pr.getTemperatura();
+       v  += pr.getVeloviento();
    }
-   pr.setTemperatura(t/NUM_MUESTRAS_MIN );
-   pr.setVeloviento(v/NUM_MUESTRAS_MIN );
-   pr.setDirviento(dv/NUM_MUESTRAS_MIN );
-
-//   std::cout << "Promedio Temperatura:" <<pr.getTemperatura() << std::endl;
-//   std::cout << "Promedio Velocidad viento:" <<pr.getVeloviento() << std::endl;
-//   std::cout << "Promedio Direccion viento:" <<pr.getDirviento() << std::endl;
+   pr.setAltura(a/NUM_MUESTRAS_M);
+   pr.setDirviento(dv/NUM_MUESTRAS_M);
+   pr.setLatitud(la/NUM_MUESTRAS_M);
+   pr.setLongitud(lo/NUM_MUESTRAS_M);
+   pr.setTemperatura(t/NUM_MUESTRAS_M);
+   pr.setVeloviento(v/NUM_MUESTRAS_M);
 
    return pr;
 }
