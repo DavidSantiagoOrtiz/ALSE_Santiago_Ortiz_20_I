@@ -8,6 +8,8 @@
 
 Estacion_meteo::Estacion_meteo(time_t fecha, int hora, int minuto)
 {
+    this->_num_datos = 0;
+
     this->_fecha = fecha;
     this->_hora = hora;
     this->_minuto = minuto;
@@ -27,7 +29,7 @@ Estacion_meteo::Estacion_meteo()
 bool Estacion_meteo::iniciar_toma_datos()
 {
 
-    timer1->setInterval(0.1);
+    timer1->setInterval(0.5);
     timer2->setInterval(8640);
 
     //timer1->setInterval(1000*INTERVAL_M);
@@ -60,19 +62,25 @@ bool Estacion_meteo::cerrarGUI()
 
 void Estacion_meteo::alarma_5_segundos()
 {
-    this->_number_of_date ++;
 
     Dato promedio_minuto;
-    muestra->tomarDato();
-
-    if (muestra->getIndice() == NUM_MUESTRAS_M){
-
-        promedio_minuto = muestra->promedio();
+    muestra.tomarDato();
+    if (muestra.getIndice() == NUM_MUESTRAS_M){
+        this->_num_datos++;
+        promedio_minuto = muestra.promedio();
+        muestra.setIndice(0);
+        this->_minuto++;
+        if (this->_minuto == 60) {
+            this->_minuto = 0;
+            this->_hora++;
+            if (this->_hora == 25 || this->_minuto == 60){
+                this->_minuto = 0;
+                this->_hora   = 0;
+            }
+        }
+        std::cout<<"Se guardo un dato: "<<this->_num_datos<<"  Temperatura :"<< promedio_minuto.getTemperatura()<<"  "<<this->_hora<<":"<<this->_minuto<<std::endl;
     }
-    muestra->setIndice(0);
-    //db_local->guardar_dato(promedio_minuto,this->_hora,this->_minuto);
 
-    std::cout<<"Se guardo un dato:"<<this->_number_of_date<<"  "<<this->_hora<<":"<<this->_minuto<<std::endl;
 
     timer1->start();
 }
@@ -80,6 +88,7 @@ void Estacion_meteo::alarma_5_segundos()
 void Estacion_meteo::alarma_24_horas()
 {
     timer1->stop();
+
     Dato promedio_hora;
 
      float t = 0.,v = 0.;
@@ -88,13 +97,20 @@ void Estacion_meteo::alarma_24_horas()
 
      for (int j = 1 ; j <= INTERVAL_DIA ; j++){
          for (int i = 1 ; i <= NUM_MUESTRAS_H ; i++){
-             promedio_hora = db_local->getdato_minuto(0,0);
+             promedio_hora = db_local->getdato_minuto(this->_hora,this->_minuto);
              a  += promedio_hora.getAltura() ;
              dv += promedio_hora.getDirviento();
              la += promedio_hora.getLatitud();
              lo += promedio_hora.getLongitud();
              t  += promedio_hora.getTemperatura();
              v  += promedio_hora.getVeloviento();
+             std::cout<<" Temperatura: "<<t<<"  Ciclo: "<<i<<std::endl;
+             this->_minuto++;
+             if (this->_minuto == 59) {
+                 this->_minuto = 0;
+                 this->_hora++;
+             }
+
          }
          promedio_hora.setAltura(a/NUM_MUESTRAS_H);
          promedio_hora.setDirviento(dv/NUM_MUESTRAS_H);
@@ -103,7 +119,8 @@ void Estacion_meteo::alarma_24_horas()
          promedio_hora.setTemperatura(t/NUM_MUESTRAS_H);
          promedio_hora.setVeloviento(v/NUM_MUESTRAS_H);
 
-         std::cout<<"ENVIAR PROMEDIO A LA BASE DE DATOS REMOTA  "<<j<<std::endl;
+         std::cout<<"GUARDAR EN BASE DE DATOS REMOTA  "<<j;
+         std::cout<<" Temperatura: "<<promedio_hora.getTemperatura()<<std::endl;
 
          promedio_hora.setAltura(0);
          promedio_hora.setDirviento(0);

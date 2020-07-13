@@ -8,12 +8,9 @@ Muestreo::Muestreo(){
 
 bool Muestreo::tomarDato()
 {
-    float t = 22.3, v = 45.7;
-    int dr = 67;
-    double lo = 74045130 , la = 4355657 , a = 2630;
-    unsigned char h = 50 ;
 
-    Dato d(t,h,v,dr,la,lo,a);
+    Dato d(this->sensor_temperatura(),this->sensor_humedad(),this->sensor_vel_viento(),this->sensor_dir_viento()
+           ,this->GPS_latitud(),this->GPS_longitud(),this->GPS_altura());
     
     if(_indice < NUM_MUESTRAS_M ){
         _datos[_indice] = d;
@@ -31,12 +28,12 @@ Dato Muestreo::promedio()
 
    for (int i = 0; i < NUM_MUESTRAS_M ; i++){
 
-       a  += pr.getAltura() ;
-       dv += pr.getDirviento();
-       la += pr.getLatitud();
-       lo += pr.getLongitud();
-       t  += pr.getTemperatura();
-       v  += pr.getVeloviento();
+       a  += _datos[i].getAltura();
+       dv += _datos[i].getDirviento();
+       la += _datos[i].getLatitud();
+       lo += _datos[i].getLongitud();
+       t  += _datos[i].getTemperatura();
+       v  += _datos[i].getVeloviento();
    }
    pr.setAltura(a/NUM_MUESTRAS_M);
    pr.setDirviento(dv/NUM_MUESTRAS_M);
@@ -48,9 +45,39 @@ Dato Muestreo::promedio()
    return pr;
 }
 
-Muestreo::~Muestreo()
+float Muestreo::sensor_temperatura()
 {
-    std::cout << "Llamada al destructor" << std::endl;
+    return 22.7;
+}
+
+float Muestreo::sensor_vel_viento()
+{
+    return 330.8;
+}
+
+int Muestreo::sensor_dir_viento()
+{
+    return 45;
+}
+
+unsigned char Muestreo::sensor_humedad()
+{
+    return 28;
+}
+
+double Muestreo::GPS_latitud()
+{
+    return 123456;
+}
+
+double Muestreo::GPS_longitud()
+{
+    return 367538;
+}
+
+double Muestreo::GPS_altura()
+{
+    return 3100;
 }
 
 

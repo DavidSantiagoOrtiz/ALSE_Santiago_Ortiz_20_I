@@ -30,7 +30,7 @@ public:
 
 
 private:
-   Muestreo *muestra;
+   Muestreo muestra;
    DB_local *db_local;
    std::time_t _fecha;
    int _hora;
@@ -42,9 +42,8 @@ private:
    std::string _usrname;
    std::string _password;
 
+   int _num_datos;
 
-
-   int _number_of_date = 0;
 private slots:
    void alarma_5_segundos(void);
    void alarma_24_horas(void);

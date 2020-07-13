@@ -1,3 +1,7 @@
+/**
+ * Project Untitled
+ */
+
 #include <iostream>
 #include <sqlite3.h>
 #include <string>
@@ -6,27 +10,8 @@
 #include "Dato.h"
 
 
+
 bool DB_local::guardar_dato(Dato d, int h, int m)
-{
-
-}
-
-bool DB_local::abrir_DB()
-{
-
-}
-
-bool DB_local::cerrar_DB()
-{
-
-}
-
-bool DB_local::crear_DB()
-{
-
-}
-
-bool DB_local::borrar_dato(Dato d)
 {
 
 }

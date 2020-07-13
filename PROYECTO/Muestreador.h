@@ -14,13 +14,22 @@ public:
     bool tomarDato();
     Dato promedio();
     int getIndice(){return _indice;}
-    void setIndice(int i){i = _indice;}
-    ~Muestreo();
+    void setIndice(int i){_indice = i;}
+
+    //SENSORES
+    float sensor_temperatura();
+    float sensor_vel_viento();
+    int sensor_dir_viento();
+    unsigned char sensor_humedad();
+    double GPS_latitud();
+    double GPS_longitud();
+    double GPS_altura();
+
 
 private:
-    int _indice;
+    int _indice ;
     //std::vector<Dato> _datos;
-    Dato _datos[NUM_MUESTRAS_M];
+    Dato _datos[NUM_MUESTRAS_M ];
 
 };
 #endif
