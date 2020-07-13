@@ -115,6 +115,10 @@ Dato.h
 /home/alse-i/Documentos/ALSE_Santiago_Ortiz_20_I/PROYECTO/Dato.h
 iostream
 -
+stdlib.h
+-
+time.h
+-
 
 /home/alse-i/Documentos/ALSE_Santiago_Ortiz_20_I/PROYECTO/Muestreador.h
 iostream

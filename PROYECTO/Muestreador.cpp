@@ -1,7 +1,8 @@
 #include "Muestreador.h"
 #include "Dato.h"
 #include <iostream>
-
+#include <stdlib.h>
+#include <time.h>
 Muestreo::Muestreo(){
     _indice = 0;
 }
@@ -47,37 +48,50 @@ Dato Muestreo::promedio()
 
 float Muestreo::sensor_temperatura()
 {
-    return 22.7;
+    srand(time(NULL));
+    float t = 0. + rand() / (1. - 63.);
+    //float t = -89.2 + rand() / (-88.2 - 63);
+    return t;
 }
 
 float Muestreo::sensor_vel_viento()
 {
-    return 330.8;
+    float v = 0. + rand() / (1. - 372.);
+    //float v = 0 + rand() / (1 - 372);
+    return v;
 }
 
 int Muestreo::sensor_dir_viento()
 {
-    return 45;
+    int dv = 0 + rand() % (1 - 360);
+    return dv;
 }
 
 unsigned char Muestreo::sensor_humedad()
 {
-    return 28;
+    unsigned char h = 0 + rand() % (1 - 100);
+    return h;
 }
 
 double Muestreo::GPS_latitud()
 {
-    return 123456;
+    double la = -90.0+ rand() / (-89.0- 90.0);
+    //double la = -90.0000000 + rand() / (-89.9999999 - 90.0000000);
+    return la;
 }
 
 double Muestreo::GPS_longitud()
 {
-    return 367538;
+    double lo = -180.0 + rand() / (-179.0+ 180.0);
+    //double lo = -180.0000000 + rand() / (-179.9999999+ 180.0000000);
+    return lo;
 }
 
 double Muestreo::GPS_altura()
 {
-    return 3100;
+    double a = 0. + rand() / (1. + 8848.00);
+    //double a = -417 + rand() / (-416.99 + 8848.00);
+    return a;
 }
 
 

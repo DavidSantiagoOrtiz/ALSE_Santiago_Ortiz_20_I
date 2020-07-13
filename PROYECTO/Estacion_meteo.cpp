@@ -29,8 +29,8 @@ Estacion_meteo::Estacion_meteo()
 bool Estacion_meteo::iniciar_toma_datos()
 {
 
-    timer1->setInterval(0.5);
-    timer2->setInterval(8640);
+    timer1->setInterval(3.47222222222222222222);
+    timer2->setInterval(1000*60);
 
     //timer1->setInterval(1000*INTERVAL_M);
     //timer2->setInterval(1000*INTERVAL_M*NUM_MUESTRAS_M*NUM_MUESTRAS_H*INTERVAL_DIA);
@@ -78,7 +78,20 @@ void Estacion_meteo::alarma_5_segundos()
                 this->_hora   = 0;
             }
         }
-        std::cout<<"Se guardo un dato: "<<this->_num_datos<<"  Temperatura :"<< promedio_minuto.getTemperatura()<<"  "<<this->_hora<<":"<<this->_minuto<<std::endl;
+        std::cout<<"Se guardo un dato: "<<this->_num_datos<<"  "<<this->_hora<<":"<<this->_minuto<<std::endl;
+        // /*
+        std::cout<<"---------------------------------------"<<std::endl;
+        std::cout<<"Temperatura:      "<<promedio_minuto.getTemperatura()<<std::endl;
+        std::cout<<"Humedad:          "<<promedio_minuto.getHumedad()<<std::endl;
+        std::cout<<"Velocidad Viento: "<<promedio_minuto.getVeloviento()<<std::endl;
+        std::cout<<"Direccion Viento: "<<promedio_minuto.getDirviento()<<std::endl;
+        std::cout<<"Latitud:          "<<promedio_minuto.getLatitud()<<std::endl;
+        std::cout<<"Longitud:         "<<promedio_minuto.getLongitud()<<std::endl;
+        std::cout<<"Altura:           "<<promedio_minuto.getAltura()<<std::endl;
+        std::cout<<"---------------------------------------"<<std::endl;
+        std::cout<<" "<<std::endl;
+        //*/
+
     }
 
 
@@ -130,6 +143,9 @@ void Estacion_meteo::alarma_24_horas()
          promedio_hora.setTemperatura(0.);
          promedio_hora.setVeloviento(0.);
      }
+     //timer1->start();
+     //timer2->start();
+
 
 }
 
