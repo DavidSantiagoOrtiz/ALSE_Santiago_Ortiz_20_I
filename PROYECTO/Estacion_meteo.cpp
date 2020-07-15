@@ -1,8 +1,8 @@
 #include "Estacion_meteo.h"
 #include "Muestreador.h"
-#include "alarma_class.h"
 #include "Dato.h"
 #include "DB_local.h"
+#include "estacion_interface.h"
 
 #include <iostream>
 
@@ -28,8 +28,10 @@ Estacion_meteo::Estacion_meteo()
 
 bool Estacion_meteo::iniciar_toma_datos()
 {
+    Estacion_interface w;
+    w.show();
 
-    timer1->setInterval(3.47222222222222222222);
+    timer1->setInterval(4);
     timer2->setInterval(1000*60);
 
     //timer1->setInterval(1000*INTERVAL_M);
@@ -52,6 +54,11 @@ bool Estacion_meteo::reporteDiario()
 
 bool Estacion_meteo::abrirGUI()
 {
+    //Dato pro_GUI;
+    Estacion_interface interface;
+    interface.escribir_GUI(45.8,78.5,445,324,65.7,67.4,8.8);
+   // pro_GUI = db_local->getdato_minuto(this->_hora,this->_minuto);
+   // interface.escribir_GUI(pro_GUI.getTemperatura(),pro_GUI.getHumedad(),pro_GUI.getVeloviento(),pro_GUI.getDirviento(),pro_GUI.getLatitud(),pro_GUI.getLongitud(),pro_GUI.getAltura());
 
 }
 
@@ -73,8 +80,7 @@ void Estacion_meteo::alarma_5_segundos()
         if (this->_minuto == 60) {
             this->_minuto = 0;
             this->_hora++;
-            if (this->_hora == 25 || this->_minuto == 60){
-                this->_minuto = 0;
+            if (this->_hora == 23){
                 this->_hora   = 0;
             }
         }
@@ -100,6 +106,7 @@ void Estacion_meteo::alarma_5_segundos()
 
 void Estacion_meteo::alarma_24_horas()
 {
+    abrirGUI();
     timer1->stop();
 
     Dato promedio_hora;
@@ -117,7 +124,6 @@ void Estacion_meteo::alarma_24_horas()
              lo += promedio_hora.getLongitud();
              t  += promedio_hora.getTemperatura();
              v  += promedio_hora.getVeloviento();
-             std::cout<<" Temperatura: "<<t<<"  Ciclo: "<<i<<std::endl;
              this->_minuto++;
              if (this->_minuto == 59) {
                  this->_minuto = 0;

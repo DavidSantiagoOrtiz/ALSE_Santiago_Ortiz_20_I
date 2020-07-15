@@ -1,13 +1,16 @@
-#include <QtCore/QTimer>
+
 
 #ifndef _ESTACION_METEO_H
 #define _ESTACION_METEO_H
 
-#include <DB_local.h>
-#include <Muestreador.h>
+#include "DB_local.h"
+#include "Muestreador.h"
 #include <ctime>
 #include <string>
 #include <iostream>
+#include <QTimer>
+
+
 
 #define INTERVAL_M 5
 #define NUM_MUESTRAS_M 12

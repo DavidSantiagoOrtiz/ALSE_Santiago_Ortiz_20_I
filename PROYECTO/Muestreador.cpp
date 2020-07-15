@@ -23,9 +23,9 @@ bool Muestreo::tomarDato()
 Dato Muestreo::promedio()
 {
    Dato pr;
-   float t,v;
-   int dv;
-   double lo,la,a;
+   float t = 0.,v = 0.;
+   int dv = 0;
+   double lo = 0,la = 0,a = 0;
 
    for (int i = 0; i < NUM_MUESTRAS_M ; i++){
 
@@ -49,15 +49,13 @@ Dato Muestreo::promedio()
 float Muestreo::sensor_temperatura()
 {
     srand(time(NULL));
-    float t = 0. + rand() / (1. - 63.);
-    //float t = -89.2 + rand() / (-88.2 - 63);
+    float t = 0 + rand() % (1 - 63);
     return t;
 }
 
 float Muestreo::sensor_vel_viento()
 {
-    float v = 0. + rand() / (1. - 372.);
-    //float v = 0 + rand() / (1 - 372);
+    float v = 0 + rand() % (1 - 372);
     return v;
 }
 
@@ -75,22 +73,19 @@ unsigned char Muestreo::sensor_humedad()
 
 double Muestreo::GPS_latitud()
 {
-    double la = -90.0+ rand() / (-89.0- 90.0);
-    //double la = -90.0000000 + rand() / (-89.9999999 - 90.0000000);
+    double la = -90+ rand() % ( 90);
     return la;
 }
 
 double Muestreo::GPS_longitud()
 {
-    double lo = -180.0 + rand() / (-179.0+ 180.0);
-    //double lo = -180.0000000 + rand() / (-179.9999999+ 180.0000000);
+    double lo = -180 + rand() % ( 180);
     return lo;
 }
 
 double Muestreo::GPS_altura()
 {
-    double a = 0. + rand() / (1. + 8848.00);
-    //double a = -417 + rand() / (-416.99 + 8848.00);
+    double a = 0 + rand() % (1 + 8848);
     return a;
 }
 

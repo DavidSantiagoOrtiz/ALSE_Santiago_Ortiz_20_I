@@ -1,7 +1,3 @@
-/**
- * Project Untitled
- */
-
 
 #ifndef _DB_LOCAL_H
 #define _DB_LOCAL_H

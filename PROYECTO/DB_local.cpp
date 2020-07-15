@@ -1,6 +1,3 @@
-/**
- * Project Untitled
- */
 
 #include <iostream>
 #include <sqlite3.h>
