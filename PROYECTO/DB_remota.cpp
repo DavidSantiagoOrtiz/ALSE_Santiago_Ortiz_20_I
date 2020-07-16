@@ -15,28 +15,36 @@
 
 using namespace std;
 
-int DB_remota::guardar_dato(Dato d, int h)
+bool DB_remota::guardar_dato(Dato d, int h)
 {
-    //Dato m;
-    //m.getpromedio();
     conectar_DB();
-
-    c = mysql_query( connection, "INSERT INTO (Temperatura, Humedad, Velo_viento, Dir_viento, Latitud, longitud, altura);"
-        "VALUES");
+    c = mysql_query( connection, ;
+    "INSERT INTO TBL_Datos (Hora, Temperatura, Humedad,";
+    " Vel_viento, Dir_viento, Latitud, Longitud, Altura)";
+    " VALUES ( ";
+    h << ", ";
+    d.getTemperatura() << ", ";
+    d.getHumedad() << ", ";
+    d.getVeloviento() << ", ";
+    d.getDirviento() << ", ";
+    d.getLatitud() << ", ";
+    d.getLongitud() << ", ";
+    d.getAltura() << "); ";)
 
     desconectar_DB();
+    return true;
 }
-int DB_remota::conectar_DB()
+bool DB_remota::conectar_DB()
 {
-    //connection = mysql_conect(&mysql);
+    connection = mysql_conect(&mysql);
     connection = mysql_real_connect(&mysql,HOST,USER,PASSWD,DB,51000,0,0);
 
     if (connection == NULL) {
         cout << mysql_error(&mysql) << endl;
-        return 1;
-    }else{ return 0; }
+        return false;
+    }else{ return true; }
 }
-int DB_remota::desconectar_DB()
+ DB_remota::desconectar_DB()
 {
     mysql_free_result( result );
     mysql_close( connection );

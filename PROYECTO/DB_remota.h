@@ -22,9 +22,9 @@ class DB_remota{
 
     public:
 
-        int conectar_DB();
-        int desconectar_DB();
-        int guardar_dato(Dato d, int h);
+        bool conectar_DB();
+        bool desconectar_DB();
+        bool guardar_dato(Dato d, int h);
 
     private:
 

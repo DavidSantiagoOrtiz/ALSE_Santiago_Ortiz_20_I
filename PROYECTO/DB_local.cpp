@@ -108,7 +108,7 @@ Dato DB_local::getdato_minuto( const int &h,  const int &m)
 
    abrir_DB();
 
-   sqlstream << "SELECT from TBL_SENSORES WHERE Hora = " << h "AND Minuto = " << m ;
+   //sqlstream << "SELECT from TBL_SENSORES WHERE Hora = " << h "AND Minuto = " << m  ;
 
    string sql ( sqlstream.str() );
 
@@ -165,7 +165,7 @@ bool DB_local::borrar_DB(){
     sql = "DELETE from TBL_SENSORES WHERE hora !=66; ";
 
 
-    rc = sqlite3_exec(ddb, sql, callback, (void*)data, &zErrMsg);
+    //rc = sqlite3_exec(ddb, sql, callback, (void*)data, &zErrMsg);
 
     if( rc != SQLITE_OK ) {
        fprintf(stderr, "SQL error: %s\n", zErrMsg);

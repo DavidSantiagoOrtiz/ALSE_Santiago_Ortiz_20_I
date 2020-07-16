@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
     timeinfo = std::localtime (&f);
     Estacion_meteo EM1B_ECI(f,timeinfo->tm_hour,timeinfo->tm_min);
     EM1B_ECI.iniciar_toma_datos();
-
+    Estacion_interface interface;
+    interface.show();
     return a.exec();
 }

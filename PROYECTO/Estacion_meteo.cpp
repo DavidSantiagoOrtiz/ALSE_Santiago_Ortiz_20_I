@@ -72,6 +72,7 @@ void Estacion_meteo::alarma_5_segundos()
     if (muestra.getIndice() == NUM_MUESTRAS_M){
         this->_num_datos++;
         promedio_minuto = muestra.promedio();
+        db_local->guardar_dato(promedio_minuto,this->_hora,this->_minuto);
         muestra.setIndice(0);
         this->_minuto++;
         if (this->_minuto == 60) {
