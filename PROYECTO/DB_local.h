@@ -1,3 +1,7 @@
+/**
+ * Project Untitled
+ */
+
 
 #ifndef _DB_LOCAL_H
 #define _DB_LOCAL_H
@@ -8,21 +12,21 @@
 #include <stdlib.h>
 #include "DB_local.h"
 #include "Dato.h"
-
+#include <sqlite3.h>
 
 using namespace std;
 
 class DB_local{
 
     public:
-        // int callback(void *data, int argc, char **argv, char **azColName);
-        bool guardar_dato(Dato d, int h, int m);
+
+
+        bool guardar_dato(Dato &b, const int &hor, const int &min);
         bool abrir_DB();
         bool cerrar_DB();
-        bool crear_DB(char n_DB);
-        //bool borrar_dato(Dato d);
-        Dato getdato_minuto(int h, int m);
-        Dato getdato(int h, int m, int s);
+        bool crear_DB();
+        bool borrar_DB();
+        Dato getdato_minuto( const int &h, const int &m);
         Dato getPromedio(int h);
 
     private:

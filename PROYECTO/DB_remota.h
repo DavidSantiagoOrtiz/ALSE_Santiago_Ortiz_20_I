@@ -9,7 +9,7 @@
 #include <iostream>
 #include <mysql/mysql.h>
 #include "DB_remota.h"
-#include "Dato.h>
+#include "Dato.h"
 
 using namespace std;
 

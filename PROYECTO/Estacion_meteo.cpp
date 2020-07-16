@@ -3,7 +3,6 @@
 #include "Dato.h"
 #include "DB_local.h"
 #include "estacion_interface.h"
-
 #include <iostream>
 
 Estacion_meteo::Estacion_meteo(time_t fecha, int hora, int minuto)
@@ -28,11 +27,9 @@ Estacion_meteo::Estacion_meteo()
 
 bool Estacion_meteo::iniciar_toma_datos()
 {
-    Estacion_interface w;
-    w.show();
 
-    timer1->setInterval(4);
-    timer2->setInterval(1000*60);
+    timer1->setInterval(1);
+    timer2->setInterval(1000);
 
     //timer1->setInterval(1000*INTERVAL_M);
     //timer2->setInterval(1000*INTERVAL_M*NUM_MUESTRAS_M*NUM_MUESTRAS_H*INTERVAL_DIA);
@@ -52,14 +49,14 @@ bool Estacion_meteo::reporteDiario()
 
 }
 
-bool Estacion_meteo::abrirGUI()
+bool Estacion_meteo::abrirGUI(Dato d)
 {
-    //Dato pro_GUI;
-    Estacion_interface interface;
-    interface.escribir_GUI(45.8,78.5,445,324,65.7,67.4,8.8);
-   // pro_GUI = db_local->getdato_minuto(this->_hora,this->_minuto);
-   // interface.escribir_GUI(pro_GUI.getTemperatura(),pro_GUI.getHumedad(),pro_GUI.getVeloviento(),pro_GUI.getDirviento(),pro_GUI.getLatitud(),pro_GUI.getLongitud(),pro_GUI.getAltura());
 
+    Estacion_interface interface;
+    interface.escribir_GUI(d.getTemperatura(),d.getHumedad(),d.getVeloviento(),d.getDirviento(),d.getLatitud(),d.getLongitud(),d.getAltura());
+    interface.show();
+
+    return true;
 }
 
 bool Estacion_meteo::cerrarGUI()
@@ -99,17 +96,15 @@ void Estacion_meteo::alarma_5_segundos()
         //*/
 
     }
-
-
     timer1->start();
 }
 
 void Estacion_meteo::alarma_24_horas()
 {
-    abrirGUI();
-    timer1->stop();
 
-    Dato promedio_hora;
+    char rta;
+    timer1->stop();
+    Dato promedio_hora , promedio_dia;
 
      float t = 0.,v = 0.;
      int dv = 0;
@@ -138,17 +133,21 @@ void Estacion_meteo::alarma_24_horas()
          promedio_hora.setTemperatura(t/NUM_MUESTRAS_H);
          promedio_hora.setVeloviento(v/NUM_MUESTRAS_H);
 
-         std::cout<<"GUARDAR EN BASE DE DATOS REMOTA  "<<j;
-         std::cout<<" Temperatura: "<<promedio_hora.getTemperatura()<<std::endl;
+         promedio_dia.setAltura(promedio_hora.getAltura()/INTERVAL_DIA);
+         promedio_dia.setDirviento(promedio_hora.getDirviento()/INTERVAL_DIA);
+         promedio_dia.setLatitud(promedio_hora.getLatitud()/INTERVAL_DIA);
+         promedio_dia.setLongitud(promedio_hora.getLongitud()/INTERVAL_DIA);
+         promedio_dia.setTemperatura(promedio_hora.getTemperatura()/INTERVAL_DIA);
+         promedio_dia.setVeloviento(promedio_hora.getVeloviento()/INTERVAL_DIA);
 
-         promedio_hora.setAltura(0);
-         promedio_hora.setDirviento(0);
-         promedio_hora.setHumedad(0);
-         promedio_hora.setLatitud(0);
-         promedio_hora.setLongitud(0);
-         promedio_hora.setTemperatura(0.);
-         promedio_hora.setVeloviento(0.);
+         std::cout<<"GUARDAR EN BASE DE DATOS REMOTA  "<< std::endl;
+         //db_remota->guardar_dato(promedio_hora,this->_hora);
      }
+
+     std::cout << "Desea ver el promedio de datos Metereológicos de este dia (S/N)" << std::endl;
+     std::cin >> rta;
+     if (rta == 'S' || rta == 's')abrirGUI(promedio_dia);
+
      //timer1->start();
      //timer2->start();
 

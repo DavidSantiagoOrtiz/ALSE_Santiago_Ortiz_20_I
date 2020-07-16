@@ -108,7 +108,7 @@ Dato DB_local::getdato_minuto( const int &h,  const int &m)
 
    abrir_DB();
 
-   sqlstream << "SELECT from TBL_SENSORES WHERE Hora = " << h "AND Minuto = " << m ;
+   sqlstream << "SELECT from TBL_SENSORES WHERE Hora = " << h "AND Minuto = " << m  ;
 
    string sql ( sqlstream.str() );
 

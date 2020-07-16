@@ -17,8 +17,8 @@ using namespace std;
 
 int DB_remota::guardar_dato(Dato d, int h)
 {
-    Dato m;
-    m.getpromedio();
+    //Dato m;
+    //m.getpromedio();
     conectar_DB();
 
     c = mysql_query( connection, "INSERT INTO (Temperatura, Humedad, Velo_viento, Dir_viento, Latitud, longitud, altura);"
@@ -28,7 +28,7 @@ int DB_remota::guardar_dato(Dato d, int h)
 }
 int DB_remota::conectar_DB()
 {
-    connection = mysql_conect(&mysql);
+    //connection = mysql_conect(&mysql);
     connection = mysql_real_connect(&mysql,HOST,USER,PASSWD,DB,51000,0,0);
 
     if (connection == NULL) {

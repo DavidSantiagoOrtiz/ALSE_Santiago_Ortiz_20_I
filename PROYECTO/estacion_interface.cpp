@@ -1,11 +1,9 @@
 #include "estacion_interface.h"
 #include "ui_estacion_interface.h"
+#include<iostream>
 
 void Estacion_interface::escribir_GUI(float t, unsigned char h, float v, int d, double la, double lo, double a)
 {
-    QApplication a(argc, argv);
-    Estacion_interface w;
-
 
     ui->txt_temperatura->setText( QString::number(t) );
     ui->txt_humedad->setText( QString::number(h) );
@@ -15,7 +13,6 @@ void Estacion_interface::escribir_GUI(float t, unsigned char h, float v, int d, 
     ui->txt_longitud->setText( QString::number(lo) );
     ui->txt_Altura->setText( QString::number(a) );
 
-    w.show();
 }
 
 Estacion_interface::Estacion_interface(QWidget *parent) :

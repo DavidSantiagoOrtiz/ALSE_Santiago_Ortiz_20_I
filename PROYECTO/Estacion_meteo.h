@@ -4,6 +4,7 @@
 #define _ESTACION_METEO_H
 
 #include "DB_local.h"
+#include "DB_remota.h"
 #include "Muestreador.h"
 #include <ctime>
 #include <string>
@@ -28,13 +29,15 @@ public:
     bool iniciar_toma_datos();
     bool deterner_toma_datos();
     bool reporteDiario();
-    bool abrirGUI();
+    bool abrirGUI(Dato d);
     bool cerrarGUI();
 
 
 private:
    Muestreo muestra;
    DB_local *db_local;
+   DB_remota *db_remota;
+
    std::time_t _fecha;
    int _hora;
    int _minuto;
@@ -46,6 +49,7 @@ private:
    std::string _password;
 
    int _num_datos;
+
 
 private slots:
    void alarma_5_segundos(void);
