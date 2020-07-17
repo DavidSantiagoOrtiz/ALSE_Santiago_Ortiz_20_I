@@ -13,25 +13,19 @@
 
 using namespace std;
 
-#define HOST "8.8.8.8"
-#define USER "username"
-#define PASSWD "uswrpasswd"
-#define DB "db_name"
-
 class DB_remota{
 
     public:
 
+        DB_remota();
         bool conectar_DB();
         bool desconectar_DB();
         bool guardar_dato(Dato d, int h);
+        bool create_table();
 
     private:
 
-        string URL;
         MYSQL *connection, mysql;
-        MYSQL_RES *result;
-        int c;
 
 };
 

@@ -59,18 +59,21 @@ bool DB_local::guardar_dato(Dato &b, const int &hor, const int &min)
     int rc;
     char *zErrMsg = 0;
 
-    sqlstream << "INSERT INTO TBL_SENSORES ( Hora, Minuto, Temperatura, Humedad, Velo_viento, Dir_viento, Latitud, Longitud, Altura )";
+    sqlstream << "INSERT INTO TBL_SENSORES ( Hora, Minuto, Temperatura, Humedad, Velo_viento, Dir_viento, Latitud, Longitud, Altura ) ";
     sqlstream << "VALUES (";
     sqlstream << hor << ", " << min << ", ";
     sqlstream << b.getTemperatura() << ", ";
-    sqlstream << b.getHumedad() << ", ";
+    sqlstream << (int)b.getHumedad() << ", ";
     sqlstream << b.getVeloviento() << ", ";
     sqlstream << b.getDirviento() << ", ";
     sqlstream << b.getLatitud() << ", ";
     sqlstream << b.getLongitud() << ", ";
     sqlstream << b.getAltura() << " );";
 
+    std::cout << sqlstream.str() << std::endl;
+
     string sql ( sqlstream.str() );
+
 
     rc = sqlite3_exec(ddb, sql.c_str(), NULL, 0, &zErrMsg);
 
@@ -97,32 +100,72 @@ static int callback(void *data, int argc, char **argv, char **azColName){
    return 0;
 }
 
+static int callback_gd(void *data, int argc, char **argv, char **azColName){
+   int i;
+   Dato *gd = (Dato*) data;
+   fprintf(stderr, "%s: ", (const char*)data);
 
-Dato DB_local::getdato_minuto( const int &h,  const int &m)
+
+   gd->setTemperatura(atof(argv[0]));
+   gd->setHumedad( (unsigned char) *argv[1] );
+   gd->setVeloviento(atof(argv[2]));
+   gd->setDirviento(atoi(argv[3]));
+   gd->setLatitud(atof(argv[4]));
+   gd->setLongitud(atof(argv[5]));
+   gd->setAltura(atof(argv[6]));
+
+
+   // /*
+   std::cout<<"----------PROMEDIO CALLBACK-------------"<<std::endl;
+   std::cout<<"Temperatura:      "<<gd->getTemperatura()<<std::endl;
+   std::cout<<"Humedad:          "<<gd->getHumedad()<<std::endl;
+   std::cout<<"Velocidad Viento: "<<gd->getVeloviento()<<std::endl;
+   std::cout<<"Direccion Viento: "<<gd->getDirviento()<<std::endl;
+   std::cout<<"Latitud:          "<<gd->getLatitud()<<std::endl;
+   std::cout<<"Longitud:         "<<gd->getLongitud()<<std::endl;
+   std::cout<<"Altura:           "<<gd->getAltura()<<std::endl;
+   std::cout<<"---------------------------------------"<<std::endl;
+   std::cout<<" "<<std::endl;
+   // */
+
+
+   printf("\n");
+   return 0;
+}
+
+Dato DB_local::getdato_promedio_hora( const int &h)
 {
 
    stringstream sqlstream;
    int rc;
-   const char* data = "Callback function called";
+   Dato gd;
+   //const char* data = "Callback function called";
    char *zErrMsg = 0;
 
    abrir_DB();
 
-   //sqlstream << "SELECT from TBL_SENSORES WHERE Hora = " << h "AND Minuto = " << m  ;
+   sqlstream << "SELECT   Hora, AVG(Temperatura), AVG(Humedad), AVG(Velo_viento), AVG(Dir_viento), AVG(Latitud), AVG(Longitud), AVG(Altura) FROM TBL_SENSORES  WHERE Hora = " ;
+   sqlstream << h << ";" ;
+
 
    string sql ( sqlstream.str() );
 
-   rc = sqlite3_exec(ddb, sql.c_str(), callback, (void*)data, &zErrMsg);
+   rc = sqlite3_exec(ddb, sql.c_str(), callback_gd, (void*) &gd, &zErrMsg);
 
    if( rc != SQLITE_OK ) {
       fprintf(stderr, "SQL error: %s\n", zErrMsg);
       sqlite3_free(zErrMsg);
-   } else {
+   } else
       fprintf(stdout, "Operation done successfully\n");
 
+
    cerrar_DB();
+   return gd;
 }
-}
+
+
+
+
 
 bool DB_local::crear_DB(){
 
@@ -133,11 +176,11 @@ bool DB_local::crear_DB(){
 
     abrir_DB();
 
-    sqlstr = "CREATE TABLE TBL_SENSORES2 (Hora REAL PRIMARY KEY NOT NULL, Minuto REAL PRIMARY KEY NOT NULL, Temperatura REAL NOT NULL," \
+    sqlstr = "CREATE TABLE TBL_SENSORES (Hora REAL NOT NULL, Minuto REAL NOT NULL, Temperatura REAL NOT NULL," \
        "Humedad INTEGER NOT NULL, Velo_viento REAL NOT NULL," \
-       "Dir_viento REAL NOT NULL, Latitud REAL NOT NULL, Longitud REAL NOT NULL, Altitud REAL NOT NULL );";
+       "Dir_viento REAL NOT NULL, Latitud REAL NOT NULL, Longitud REAL NOT NULL, Altura REAL NOT NULL );";
 
-    /* Execute SQL statement */
+
     rc = sqlite3_exec(ddb, sqlstr.c_str(), callback, 0, &zErrMsg);
 
     if( rc != SQLITE_OK ){
@@ -156,16 +199,16 @@ bool DB_local::crear_DB(){
 bool DB_local::borrar_DB(){
 
     int rc;
-    string sql;
+    char *sql;
     char *zErrMsg = 0;
-    const char* data = "Callback function called";
 
     abrir_DB();
 
-    sql = "DELETE from TBL_SENSORES WHERE hora !=66; ";
+    sql = "DELETE from TBL_SENSORES WHERE hora != 66; ";
 
 
-    //rc = sqlite3_exec(ddb, sql, callback, (void*)data, &zErrMsg);
+    rc = sqlite3_exec(ddb, sql, NULL, 0, &zErrMsg);
+
 
     if( rc != SQLITE_OK ) {
        fprintf(stderr, "SQL error: %s\n", zErrMsg);

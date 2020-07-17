@@ -26,8 +26,9 @@ class DB_local{
         bool cerrar_DB();
         bool crear_DB();
         bool borrar_DB();
-        Dato getdato_minuto( const int &h, const int &m);
-        Dato getPromedio(int h);
+        Dato getdato_promedio_hora( const int &h);
+
+
 
     private:
         sqlite3 *ddb;

@@ -3,6 +3,7 @@
 #ifndef _ESTACION_METEO_H
 #define _ESTACION_METEO_H
 
+#include "estacion_interface.h"
 #include "DB_local.h"
 #include "DB_remota.h"
 #include "Muestreador.h"
@@ -34,6 +35,8 @@ public:
 
 
 private:
+   Estacion_interface interface;
+
    Muestreo muestra;
    DB_local *db_local;
    DB_remota *db_remota;
@@ -54,6 +57,7 @@ private:
 private slots:
    void alarma_5_segundos(void);
    void alarma_24_horas(void);
+
 
 };
 #endif
