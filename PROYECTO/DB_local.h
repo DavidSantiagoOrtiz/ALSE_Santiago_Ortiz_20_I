@@ -20,7 +20,7 @@ class DB_local{
 
     public:
 
-
+        DB_local ();
         bool guardar_dato(Dato &b, const int &hor, const int &min);
         bool abrir_DB();
         bool cerrar_DB();

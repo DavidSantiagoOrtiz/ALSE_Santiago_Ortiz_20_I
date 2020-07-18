@@ -28,7 +28,7 @@ DB_remota::DB_remota()
 
 bool DB_remota::guardar_dato(Dato d, int h)
 {
-    std::cout<<"llegue aqui"<<std::endl;
+    std::cout<<"Guardar promedio en la base de datos remota"<<std::endl;
     conectar_DB();
     stringstream sqlstream;
     int c;
@@ -80,7 +80,7 @@ bool DB_remota::create_table()
     string sqlstream;
     int c;
     conectar_DB();
-    sqlstream = "CREATE TABLE TBL_Datos (ID REAL PRIMARY KEY NOT NULL, Hora REAL NOT NULL, Temperatura REAL NOT NULL, Humedad INTEGER NOT NULL, Vel_viento REAL NOT NULL, Dir_viento REAL NOT NULL, Latitud REAL NOT NULL, Longitud REAL NOT NULL, Altura REAL NOT NULL)";
+    sqlstream = "CREATE TABLE TBL_Datos (ID INTEGER PRIMARY KEY NOT NULL, Hora REAL NOT NULL, Temperatura REAL NOT NULL, Humedad INTEGER NOT NULL, Vel_viento REAL NOT NULL, Dir_viento REAL NOT NULL, Latitud REAL NOT NULL, Longitud REAL NOT NULL, Altura REAL NOT NULL)";
     c = mysql_query( connection, sqlstream.c_str() );
 
     if (c==0)

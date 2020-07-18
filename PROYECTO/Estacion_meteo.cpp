@@ -17,6 +17,9 @@ Estacion_meteo::Estacion_meteo(time_t fecha, int hora, int minuto)
     this->_hora = hora;
     this->_minuto = minuto;
 
+    db_local = new DB_local();
+    db_remota = new DB_remota();
+
     timer1 = new QTimer(this);
     timer2 = new QTimer(this);
 
@@ -39,7 +42,7 @@ bool Estacion_meteo::iniciar_toma_datos()
     db_local->abrir_DB();
     db_local->crear_DB();
 
-    //db_remota->create_table();
+    db_remota->create_table();
 
     //timer1->setInterval(1000*INTERVAL_M);
     //timer2->setInterval(1000*INTERVAL_M*NUM_MUESTRAS_M*NUM_MUESTRAS_H*INTERVAL_DIA);

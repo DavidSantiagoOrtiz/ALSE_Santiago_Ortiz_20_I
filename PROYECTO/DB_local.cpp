@@ -50,6 +50,11 @@ bool DB_local::cerrar_DB()
 }
 
 
+DB_local::DB_local()
+{
+
+}
+
 bool DB_local::guardar_dato(Dato &b, const int &hor, const int &min)
 
 {
