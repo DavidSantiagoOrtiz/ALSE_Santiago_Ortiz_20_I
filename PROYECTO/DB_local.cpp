@@ -120,7 +120,7 @@ static int callback_gd(void *data, int argc, char **argv, char **azColName){
    gd->setAltura(atof(argv[6]));
 
 
-   // /*
+    /*
    std::cout<<"----------PROMEDIO CALLBACK-------------"<<std::endl;
    std::cout<<"Temperatura:      "<<gd->getTemperatura()<<std::endl;
    std::cout<<"Humedad:          "<<gd->getHumedad()<<std::endl;
@@ -131,7 +131,7 @@ static int callback_gd(void *data, int argc, char **argv, char **azColName){
    std::cout<<"Altura:           "<<gd->getAltura()<<std::endl;
    std::cout<<"---------------------------------------"<<std::endl;
    std::cout<<" "<<std::endl;
-   // */
+    */
 
 
    printf("\n");
@@ -209,7 +209,7 @@ bool DB_local::borrar_DB(){
 
     abrir_DB();
 
-    sql = "DELETE from TBL_SENSORES WHERE hora != 66; ";
+    sql = "DELETE FROM TBL_SENSORES;";
 
 
     rc = sqlite3_exec(ddb, sql, NULL, 0, &zErrMsg);

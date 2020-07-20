@@ -77,7 +77,26 @@ bool DB_remota::create_table()
     string sqlstream;
     int c;
     conectar_DB();
-    sqlstream = "CREATE TABLE TBL_Datos (ID INTEGER PRIMARY KEY NOT NULL, Hora REAL NOT NULL, Temperatura REAL NOT NULL, Humedad INTEGER NOT NULL, Vel_viento REAL NOT NULL, Dir_viento REAL NOT NULL, Latitud REAL NOT NULL, Longitud REAL NOT NULL, Altura REAL NOT NULL)";
+    sqlstream = "CREATE TABLE TBL_Datos (ID INTEGER PRIMARY KEY NOT NULL AUTOINCREMENT, Hora REAL NOT NULL, Temperatura REAL NOT NULL, Humedad INTEGER NOT NULL, Vel_viento REAL NOT NULL, Dir_viento REAL NOT NULL, Latitud REAL NOT NULL, Longitud REAL NOT NULL, Altura REAL NOT NULL)";
+    c = mysql_query( connection, sqlstream.c_str() );
+
+    if (c==0)
+    {
+        return true;
+    }else{
+        cout << mysql_error(&mysql) << endl;
+        return false;
+    }
+    desconectar_DB();
+    return true;
+}
+
+bool DB_remota::delete_table()
+{
+    string sqlstream;
+    int c;
+    conectar_DB();
+    sqlstream = "DELETE TABLE TBL_Datos";
     c = mysql_query( connection, sqlstream.c_str() );
 
     if (c==0)

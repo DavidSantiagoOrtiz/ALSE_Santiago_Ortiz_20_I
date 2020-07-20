@@ -36,8 +36,8 @@ Estacion_meteo::Estacion_meteo()
 bool Estacion_meteo::iniciar_toma_datos()
 {
 
-    timer1->setInterval(1);
-    timer2->setInterval(17280);
+    timer1->setInterval(30);
+    timer2->setInterval(518400);
 
     db_local->abrir_DB();
     db_local->crear_DB();
@@ -121,7 +121,8 @@ void Estacion_meteo::alarma_24_horas()
      for (int j = 1 ; j <= INTERVAL_DIA ; j++){
 
          promedio_hora = db_local->getdato_promedio_hora(this->_hora);
-
+         db_remota->guardar_dato(promedio_hora,this->_hora);
+         this->_hora;
          std::cout<<""<<std::endl;
          std::cout<<"Promedio de la hora: "<<j<<std::endl;
          // /*
@@ -135,13 +136,12 @@ void Estacion_meteo::alarma_24_horas()
          std::cout<<"Altura:           "<<promedio_hora.getAltura()<<std::endl;
          std::cout<<"---------------------------------------"<<std::endl;
          std::cout<<" "<<std::endl;
-         // */
-
-
-         db_remota->guardar_dato(promedio_hora,this->_hora);
-         abrirGUI(promedio_hora);
+         // *
      }
+     abrirGUI(promedio_hora);
      db_local->borrar_DB();
+     db_remota->delete_table();
+     this->_num_datos = 0;
      timer1->start();
      timer2->start();
 

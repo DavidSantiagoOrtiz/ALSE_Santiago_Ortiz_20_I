@@ -22,6 +22,7 @@ class DB_remota{
         bool desconectar_DB();
         bool guardar_dato(Dato d, int h);
         bool create_table();
+        bool delete_table();
 
     private:
 
