@@ -142,8 +142,8 @@ void Estacion_meteo::alarma_24_horas()
          abrirGUI(promedio_hora);
      }
      db_local->borrar_DB();
-     //timer1->start();
-     //timer2->start();
+     timer1->start();
+     timer2->start();
 
 }
 

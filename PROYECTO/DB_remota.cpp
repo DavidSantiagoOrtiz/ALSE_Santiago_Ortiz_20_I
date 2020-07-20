@@ -28,7 +28,6 @@ DB_remota::DB_remota()
 
 bool DB_remota::guardar_dato(Dato d, int h)
 {
-    std::cout<<"Guardar promedio en la base de datos remota"<<std::endl;
     conectar_DB();
     stringstream sqlstream;
     int c;
@@ -43,9 +42,7 @@ bool DB_remota::guardar_dato(Dato d, int h)
     sqlstream << d.getDirviento() << ", ";
     sqlstream << d.getLatitud() << ", ";
     sqlstream << d.getLongitud() << ", ";
-    sqlstream << d.getAltura() << ");";
-
-    std::cout<<sqlstream.str()<<std::endl;
+    sqlstream << d.getAltura() << ")";
     c = mysql_query( connection, sqlstream.str().c_str() );
 
     if (c==0)
