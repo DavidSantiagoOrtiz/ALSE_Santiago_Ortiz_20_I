@@ -2,11 +2,9 @@
 #include "ui_estacion_interface.h"
 #include<iostream>
 
-void Estacion_interface::escribir_GUI(int dia, int hora, int min, float t, unsigned char h, float v, int d, double la, double lo, double a)
+void Estacion_interface::escribir_GUI(int dia, float t, unsigned char h, float v, int d, double la, double lo, double a)
 {
     ui->txt_dia->setText( QString::number(dia) );
-    ui->txt_hora->setText( QString::number(hora) );
-    ui->txt_minuto->setText( QString::number(min) );
 
     ui->txt_temperatura->setText( QString::number(t) );
     ui->txt_humedad->setText( QString::number(h) );

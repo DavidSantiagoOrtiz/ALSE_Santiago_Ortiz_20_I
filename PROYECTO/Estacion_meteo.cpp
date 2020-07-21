@@ -37,8 +37,8 @@ Estacion_meteo::Estacion_meteo()
 bool Estacion_meteo::iniciar_toma_datos()
 {
 
-    timer1->setInterval(5);
-    timer2->setInterval(115000);//110505
+    timer1->setInterval(208);//5
+    timer2->setInterval(3600000);//110505
 
     db_local->borrar_DB();
     db_local->abrir_DB();
@@ -64,9 +64,9 @@ bool Estacion_meteo::reporteDiario()
 
 }
 
-bool Estacion_meteo::abrirGUI(Dato d,int dia, int hora , int min)
+bool Estacion_meteo::abrirGUI(Dato d,int dia)
 {
-    this->interface.escribir_GUI(dia, hora, min, d.getTemperatura(),d.getHumedad(),d.getVeloviento(),d.getDirviento(),d.getLatitud(),d.getLongitud(),d.getAltura());
+    this->interface.escribir_GUI(dia, d.getTemperatura(),d.getHumedad(),d.getVeloviento(),d.getDirviento(),d.getLatitud(),d.getLongitud(),d.getAltura());
     interface.show();
 
     return true;
@@ -114,19 +114,18 @@ void Estacion_meteo::alarma_5_segundos()
 
 void Estacion_meteo::alarma_24_horas()
 {
+    int hora = this->_hora;
     timer1->stop();
-    struct tm * timeinfo;
-
     Dato promedio_hora;
     this->_dia++;
      for (int j = 1 ; j <= INTERVAL_DIA ; j++){
 
-         promedio_hora = db_local->getdato_promedio_hora(this->_hora);
-         db_remota->guardar_dato(promedio_hora,this->_hora);
-         if (this->_hora == 23){
-             this->_hora   = 0;
+         promedio_hora = db_local->getdato_promedio_hora(hora);
+         db_remota->guardar_dato(promedio_hora,hora);
+         if (hora == 23){
+             hora   = 0;
          }
-         this->_hora++;
+         hora++;
          std::cout<<""<<std::endl;
          std::cout<<"Promedio de la hora: "<<j<<std::endl;
          // /*
@@ -143,8 +142,8 @@ void Estacion_meteo::alarma_24_horas()
          // *
 
      }
-     timeinfo = std::localtime (&_fecha);
-     abrirGUI(promedio_hora,this->_dia,timeinfo->tm_hour,timeinfo->tm_min);
+
+     abrirGUI(promedio_hora,this->_dia);
      db_local->borrar_DB();
      this->_num_datos = 0;
      timer1->start();

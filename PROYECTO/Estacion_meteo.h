@@ -30,7 +30,7 @@ public:
     bool iniciar_toma_datos();
     bool deterner_toma_datos();
     bool reporteDiario();
-    bool abrirGUI(Dato d, int dia, int hora, int min);
+    bool abrirGUI(Dato d, int dia);
     bool cerrarGUI();
 
 
