@@ -12,7 +12,7 @@ class Estacion_interface : public QMainWindow
     Q_OBJECT
 
 public:
-    void escribir_GUI(float t , unsigned char h , float v , int d , double la , double lo , double a);
+    void escribir_GUI(int dia, int hora, int min,float t , unsigned char h , float v , int d , double la , double lo , double a);
     explicit Estacion_interface(QWidget *parent = 0);
     ~Estacion_interface();
 

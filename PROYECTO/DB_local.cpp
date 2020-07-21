@@ -75,7 +75,7 @@ bool DB_local::guardar_dato(Dato &b, const int &hor, const int &min)
     sqlstream << b.getLongitud() << ", ";
     sqlstream << b.getAltura() << " );";
 
-    std::cout << sqlstream.str() << std::endl;
+    //std::cout << sqlstream.str() << std::endl;
 
     string sql ( sqlstream.str() );
 
@@ -106,7 +106,6 @@ static int callback(void *data, int argc, char **argv, char **azColName){
 }
 
 static int callback_gd(void *data, int argc, char **argv, char **azColName){
-   int i;
    Dato *gd = (Dato*) data;
    fprintf(stderr, "%s: ", (const char*)data);
 
@@ -152,8 +151,8 @@ Dato DB_local::getdato_promedio_hora( const int &h)
    sqlstream << "SELECT   Hora, AVG(Temperatura), AVG(Humedad), AVG(Velo_viento), AVG(Dir_viento), AVG(Latitud), AVG(Longitud), AVG(Altura) FROM TBL_SENSORES  WHERE Hora = " ;
    sqlstream << h << ";" ;
 
-
    string sql ( sqlstream.str() );
+
 
    rc = sqlite3_exec(ddb, sql.c_str(), callback_gd, (void*) &gd, &zErrMsg);
 

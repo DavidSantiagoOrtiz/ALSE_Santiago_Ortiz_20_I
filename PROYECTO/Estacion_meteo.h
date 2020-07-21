@@ -30,7 +30,7 @@ public:
     bool iniciar_toma_datos();
     bool deterner_toma_datos();
     bool reporteDiario();
-    bool abrirGUI(Dato d);
+    bool abrirGUI(Dato d, int dia, int hora, int min);
     bool cerrarGUI();
 
 
@@ -42,6 +42,7 @@ private:
    DB_remota *db_remota;
 
    std::time_t _fecha;
+   int _dia;
    int _hora;
    int _minuto;
    QTimer *timer1;

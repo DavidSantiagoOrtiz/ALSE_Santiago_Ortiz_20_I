@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>322</width>
-    <height>379</height>
+    <height>400</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -19,7 +19,7 @@
   <property name="maximumSize">
    <size>
     <width>322</width>
-    <height>379</height>
+    <height>400</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -67,6 +67,12 @@ border-top-color: rgb(136, 138, 133);</string>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(238, 238, 236);</string>
       </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhDigitsOnly</set>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
      </widget>
     </widget>
     <widget class="QSplitter" name="splitter_6">
@@ -88,13 +94,19 @@ border-top-color: rgb(136, 138, 133);</string>
      </widget>
      <widget class="QLineEdit" name="txt_latitud">
       <property name="cursor">
-       <cursorShape>ArrowCursor</cursorShape>
+       <cursorShape>IBeamCursor</cursorShape>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(238, 238, 236);</string>
       </property>
       <property name="inputMethodHints">
        <set>Qt::ImhDigitsOnly</set>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
       </property>
      </widget>
     </widget>
@@ -119,6 +131,12 @@ border-top-color: rgb(136, 138, 133);</string>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(238, 238, 236);</string>
       </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhDigitsOnly</set>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
      </widget>
     </widget>
     <widget class="QLabel" name="label_9">
@@ -139,7 +157,7 @@ border-top-color: rgb(136, 138, 133);</string>
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>180</y>
+      <y>170</y>
       <width>301</width>
       <height>151</height>
      </rect>
@@ -174,6 +192,12 @@ border-top-color: rgb(136, 138, 133);</string>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(238, 238, 236);</string>
       </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhDigitsOnly</set>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
      </widget>
     </widget>
     <widget class="QSplitter" name="splitter_3">
@@ -196,6 +220,12 @@ border-top-color: rgb(136, 138, 133);</string>
      <widget class="QLineEdit" name="txt_humedad">
       <property name="styleSheet">
        <string notr="true">background-color: rgb(238, 238, 236);</string>
+      </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhDigitsOnly</set>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
       </property>
      </widget>
     </widget>
@@ -220,6 +250,12 @@ border-top-color: rgb(136, 138, 133);</string>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(238, 238, 236);</string>
       </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhDigitsOnly</set>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
      </widget>
     </widget>
     <widget class="QSplitter" name="splitter_5">
@@ -242,6 +278,12 @@ border-top-color: rgb(136, 138, 133);</string>
      <widget class="QLineEdit" name="txt_dir_viento">
       <property name="styleSheet">
        <string notr="true">background-color: rgb(238, 238, 236);</string>
+      </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhDigitsOnly</set>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
       </property>
      </widget>
     </widget>
@@ -298,18 +340,80 @@ border-top-color: rgb(136, 138, 133);</string>
      </property>
     </widget>
    </widget>
-   <widget class="QLabel" name="label_8">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>100</x>
+      <x>30</x>
       <y>0</y>
-      <width>121</width>
-      <height>17</height>
+      <width>271</width>
+      <height>31</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Estación : EB1ECI</string>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string>Estación : EMB1ECI</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="txt_hora">
+       <property name="inputMethodHints">
+        <set>Qt::ImhDigitsOnly</set>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_15">
+       <property name="text">
+        <string>:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="txt_minuto">
+       <property name="inputMethodHints">
+        <set>Qt::ImhDigitsOnly</set>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>330</y>
+      <width>192</width>
+      <height>27</height>
+     </rect>
     </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="label_17">
+       <property name="text">
+        <string>Dias muestreados :</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="txt_dia">
+       <property name="inputMethodHints">
+        <set>Qt::ImhDigitsOnly</set>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

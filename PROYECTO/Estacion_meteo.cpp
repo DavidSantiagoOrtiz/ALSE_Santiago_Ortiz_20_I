@@ -9,10 +9,11 @@ Estacion_meteo::Estacion_meteo(time_t fecha, int hora, int minuto)
 {    
     this->_nombre = "Estación meteorológica ECI";
     this->_ubicacion = "";
-    this->_usrname = "EM1B_ECI";
+    this->_usrname = "EMB1ECI";
     this->_password = "EM1B_ECI@2020";
 
     this->_num_datos = 0;
+    this->_dia = 0;
     this->_fecha = fecha;
     this->_hora = hora;
     this->_minuto = minuto;
@@ -36,9 +37,10 @@ Estacion_meteo::Estacion_meteo()
 bool Estacion_meteo::iniciar_toma_datos()
 {
 
-    timer1->setInterval(30);
-    timer2->setInterval(518400);
+    timer1->setInterval(5);
+    timer2->setInterval(115000);//110505
 
+    db_local->borrar_DB();
     db_local->abrir_DB();
     db_local->crear_DB();
 
@@ -62,9 +64,9 @@ bool Estacion_meteo::reporteDiario()
 
 }
 
-bool Estacion_meteo::abrirGUI(Dato d)
+bool Estacion_meteo::abrirGUI(Dato d,int dia, int hora , int min)
 {
-    this->interface.escribir_GUI(d.getTemperatura(),d.getHumedad(),d.getVeloviento(),d.getDirviento(),d.getLatitud(),d.getLongitud(),d.getAltura());
+    this->interface.escribir_GUI(dia, hora, min, d.getTemperatura(),d.getHumedad(),d.getVeloviento(),d.getDirviento(),d.getLatitud(),d.getLongitud(),d.getAltura());
     interface.show();
 
     return true;
@@ -77,7 +79,6 @@ bool Estacion_meteo::cerrarGUI()
 
 void Estacion_meteo::alarma_5_segundos()
 {
-
     Dato promedio_minuto;
     muestra.tomarDato();
     if (muestra.getIndice() == NUM_MUESTRAS_M){
@@ -89,7 +90,7 @@ void Estacion_meteo::alarma_5_segundos()
         if (this->_minuto == 60) {
             this->_minuto = 0;
             this->_hora++;
-            if (this->_hora == 23){
+            if (this->_hora == 24){
                 this->_hora   = 0;
             }
         }
@@ -97,7 +98,7 @@ void Estacion_meteo::alarma_5_segundos()
         // /*
         std::cout<<"---------------------------------------"<<std::endl;
         std::cout<<"Temperatura:      "<<promedio_minuto.getTemperatura()<<std::endl;
-        std::cout<<"Humedad:          "<<promedio_minuto.getHumedad()<<std::endl;
+        std::cout<<"Humedad:          "<<(int)promedio_minuto.getHumedad()<<std::endl;
         std::cout<<"Velocidad Viento: "<<promedio_minuto.getVeloviento()<<std::endl;
         std::cout<<"Direccion Viento: "<<promedio_minuto.getDirviento()<<std::endl;
         std::cout<<"Latitud:          "<<promedio_minuto.getLatitud()<<std::endl;
@@ -113,22 +114,25 @@ void Estacion_meteo::alarma_5_segundos()
 
 void Estacion_meteo::alarma_24_horas()
 {
-
-
     timer1->stop();
-    Dato promedio_hora;
+    struct tm * timeinfo;
 
+    Dato promedio_hora;
+    this->_dia++;
      for (int j = 1 ; j <= INTERVAL_DIA ; j++){
 
          promedio_hora = db_local->getdato_promedio_hora(this->_hora);
          db_remota->guardar_dato(promedio_hora,this->_hora);
-         this->_hora;
+         if (this->_hora == 23){
+             this->_hora   = 0;
+         }
+         this->_hora++;
          std::cout<<""<<std::endl;
          std::cout<<"Promedio de la hora: "<<j<<std::endl;
          // /*
          std::cout<<"---------------------------------------"<<std::endl;
          std::cout<<"Temperatura:      "<<promedio_hora.getTemperatura()<<std::endl;
-         std::cout<<"Humedad:          "<<promedio_hora.getHumedad()<<std::endl;
+         std::cout<<"Humedad:          "<<(int)promedio_hora.getHumedad()<<std::endl;
          std::cout<<"Velocidad Viento: "<<promedio_hora.getVeloviento()<<std::endl;
          std::cout<<"Direccion Viento: "<<promedio_hora.getDirviento()<<std::endl;
          std::cout<<"Latitud:          "<<promedio_hora.getLatitud()<<std::endl;
@@ -137,10 +141,11 @@ void Estacion_meteo::alarma_24_horas()
          std::cout<<"---------------------------------------"<<std::endl;
          std::cout<<" "<<std::endl;
          // *
+
      }
-     abrirGUI(promedio_hora);
+     timeinfo = std::localtime (&_fecha);
+     abrirGUI(promedio_hora,this->_dia,timeinfo->tm_hour,timeinfo->tm_min);
      db_local->borrar_DB();
-     db_remota->delete_table();
      this->_num_datos = 0;
      timer1->start();
      timer2->start();

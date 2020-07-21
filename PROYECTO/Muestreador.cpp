@@ -26,6 +26,7 @@ Dato Muestreo::promedio()
    float t = 0.,v = 0.;
    int dv = 0;
    double lo = 0,la = 0,a = 0;
+   unsigned char h = 0;
 
    for (int i = 0; i < NUM_MUESTRAS_M ; i++){
 
@@ -35,6 +36,7 @@ Dato Muestreo::promedio()
        lo += _datos[i].getLongitud();
        t  += _datos[i].getTemperatura();
        v  += _datos[i].getVeloviento();
+       h  += _datos[i].getHumedad();
    }
    pr.setAltura(a/NUM_MUESTRAS_M);
    pr.setDirviento(dv/NUM_MUESTRAS_M);
@@ -42,6 +44,7 @@ Dato Muestreo::promedio()
    pr.setLongitud(lo/NUM_MUESTRAS_M);
    pr.setTemperatura(t/NUM_MUESTRAS_M);
    pr.setVeloviento(v/NUM_MUESTRAS_M);
+   pr.setHumedad(h/NUM_MUESTRAS_M);
 
    return pr;
 }
@@ -67,7 +70,7 @@ int Muestreo::sensor_dir_viento()
 
 unsigned char Muestreo::sensor_humedad()
 {
-    unsigned char h = 0 + rand() % (1 - 100);
+    unsigned char h = 1 + rand() % (2 - 100);
     return h;
 }
 
